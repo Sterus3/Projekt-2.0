@@ -6,3 +6,4 @@
 3.Wymiana waluty na zł
 4.Wymiana zł na walutę
 5.Aktualne kupno/sprzedaż
+6.Widok transakcji
