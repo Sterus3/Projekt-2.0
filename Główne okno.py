@@ -40,7 +40,7 @@ class Wymiana(QWidget):
     def __init__(self):
         super(Wymiana, self).__init__()
         self.setGeometry(500, 500, 750, 360)
-        self.setWindowTitle("Kupno")
+        self.setWindowTitle("Wymiana")
 
         self.lista1 = QListWidget(self)
         self.lista1.setGeometry(20, 10, 200, 40)
