@@ -278,7 +278,7 @@ class Aktualnosci(QWidget):
         for link in bs.find_all('a'):
             linki.append(link.get('href'))
 
-        for x in range(0,14):
+        for x in range(0,15):
             if self.lista.currentRow() == x and nadawca.text() == "&Przejdź do pełnego artykułu":
                 artlink = ("https://pb.pl" + linki[x + 97])
                 webbrowser.open_new_tab(artlink)
@@ -289,7 +289,7 @@ class Aktualnosci(QWidget):
         bs = BeautifulSoup(html.read(), 'html.parser')
         podglad = bs.find_all('p')
 
-        for x in range(0, 14):
+        for x in range(0, 15):
             if self.lista.currentRow() == x:
                 self.podglad.setText(podglad[x].get_text())
 
