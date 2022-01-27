@@ -8,7 +8,6 @@ from PyQt5.QtGui import *
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook, Workbook
-from openpyxl.utils import get_column_letter, column_index_from_string
 
 
 class moje_okno(QMainWindow):
@@ -84,8 +83,8 @@ class Wymiana(QWidget):
         for i in range(1, 30):
             Zamiana = sheet.cell(row=i, column=1).value
             Kurs = sheet.cell(row=i, column=2).value
-            Ilość = sheet.cell(row=i, column=3).value
-            Wartość = sheet.cell(row=i, column=4).value
+            Ilosc = sheet.cell(row=i, column=3).value
+            Wartosc = sheet.cell(row=i, column=4).value
             if Zamiana == None:
                 break
             else:
@@ -93,8 +92,8 @@ class Wymiana(QWidget):
                 self.tabela.insertRow(obecny_rząd)
                 self.tabela.setItem(obecny_rząd, 0, QTableWidgetItem(Zamiana))
                 self.tabela.setItem(obecny_rząd, 1, QTableWidgetItem(Kurs))
-                self.tabela.setItem(obecny_rząd, 2, QTableWidgetItem(Ilość))
-                self.tabela.setItem(obecny_rząd, 3, QTableWidgetItem(Wartość))
+                self.tabela.setItem(obecny_rząd, 2, QTableWidgetItem(Ilosc))
+                self.tabela.setItem(obecny_rząd, 3, QTableWidgetItem(Wartosc))
 
     @pyqtSlot()
     def przeliczenie(self):
@@ -245,7 +244,6 @@ class Aktualnosci(QWidget):
         html = urlopen('https://www.pb.pl/puls-inwestora/waluty/')
         bs = BeautifulSoup(html.read(), 'html.parser')
         tytul = bs.find_all('h2')
-        podglad = bs.find_all('p')
 
         super(Aktualnosci, self).__init__()
         self.setGeometry(500, 500, 740, 320)
@@ -263,7 +261,7 @@ class Aktualnosci(QWidget):
         self.lista = QListWidget(self)
         self.lista.setGeometry(470, 30, 260, 190)
         self.lista.setCurrentRow(0)
-        self.lista.itemDoubleClicked.connect(self.dupa)
+        self.lista.itemDoubleClicked.connect(self.artykul)
 
         for x in tytul:
             self.lista.addItem(x.get_text())
@@ -276,130 +274,24 @@ class Aktualnosci(QWidget):
         nadawca = self.sender()
         html = urlopen('https://www.pb.pl/puls-inwestora/waluty/')
         bs = BeautifulSoup(html.read(), 'html.parser')
-        podglad = bs.find_all('p')
         linki = []
         for link in bs.find_all('a'):
             linki.append(link.get('href'))
 
-        t1 = self.lista.currentRow() == 0
-        t2 = self.lista.currentRow() == 1
-        t3 = self.lista.currentRow() == 2
-        t4 = self.lista.currentRow() == 3
-        t5 = self.lista.currentRow() == 4
-        t6 = self.lista.currentRow() == 5
-        t7 = self.lista.currentRow() == 6
-        t8 = self.lista.currentRow() == 7
-        t9 = self.lista.currentRow() == 8
-        t10 = self.lista.currentRow() == 9
-        t11 = self.lista.currentRow() == 10
-        t12 = self.lista.currentRow() == 11
-        t13 = self.lista.currentRow() == 12
-        t14 = self.lista.currentRow() == 13
-        t15 = self.lista.currentRow() == 14
-
-        if t1 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[97])
-            webbrowser.open_new_tab(artlink)
-        elif t2 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[98])
-            webbrowser.open_new_tab(artlink)
-        elif t3 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[99])
-            webbrowser.open_new_tab(artlink)
-        elif t4 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[100])
-            webbrowser.open_new_tab(artlink)
-        elif t5 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[101])
-            webbrowser.open_new_tab(artlink)
-        elif t6 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[102])
-            webbrowser.open_new_tab(artlink)
-        elif t7 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[103])
-            webbrowser.open_new_tab(artlink)
-        elif t8 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[104])
-            webbrowser.open_new_tab(artlink)
-        elif t9 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[105])
-            webbrowser.open_new_tab(artlink)
-        elif t10 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[106])
-            webbrowser.open_new_tab(artlink)
-        elif t11 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[107])
-            webbrowser.open_new_tab(artlink)
-        elif t12 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[108])
-            webbrowser.open_new_tab(artlink)
-        elif t13 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[109])
-            webbrowser.open_new_tab(artlink)
-        elif t14 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[110])
-            webbrowser.open_new_tab(artlink)
-        elif t15 and nadawca.text() == "&Przejdź do pełnego artykułu":
-            artlink = ("https://pb.pl" + linki[111])
-            webbrowser.open_new_tab(artlink)
+        for x in range(0,14):
+            if self.lista.currentRow() == x and nadawca.text() == "&Przejdź do pełnego artykułu":
+                artlink = ("https://pb.pl" + linki[x + 97])
+                webbrowser.open_new_tab(artlink)
 
     @pyqtSlot()
-    def dupa(self):
-        nadawca = self.sender()
+    def artykul(self):
         html = urlopen('https://www.pb.pl/puls-inwestora/waluty/')
         bs = BeautifulSoup(html.read(), 'html.parser')
         podglad = bs.find_all('p')
-        linki = []
-        for link in bs.find_all('a'):
-            linki.append(link.get('href'))
 
-        t1 = self.lista.currentRow() == 0
-        t2 = self.lista.currentRow() == 1
-        t3 = self.lista.currentRow() == 2
-        t4 = self.lista.currentRow() == 3
-        t5 = self.lista.currentRow() == 4
-        t6 = self.lista.currentRow() == 5
-        t7 = self.lista.currentRow() == 6
-        t8 = self.lista.currentRow() == 7
-        t9 = self.lista.currentRow() == 8
-        t10 = self.lista.currentRow() == 9
-        t11 = self.lista.currentRow() == 10
-        t12 = self.lista.currentRow() == 11
-        t13 = self.lista.currentRow() == 12
-        t14 = self.lista.currentRow() == 13
-        t15 = self.lista.currentRow() == 14
-
-        if t1:
-            self.podglad.setText(podglad[0].get_text())
-        elif t2:
-            self.podglad.setText(podglad[1].get_text())
-        elif t3:
-            self.podglad.setText(podglad[2].get_text())
-        elif t4:
-            self.podglad.setText(podglad[3].get_text())
-        elif t5:
-            self.podglad.setText(podglad[4].get_text())
-        elif t6:
-            self.podglad.setText(podglad[5].get_text())
-        elif t7:
-            self.podglad.setText(podglad[6].get_text())
-        elif t8:
-            self.podglad.setText(podglad[7].get_text())
-        elif t9:
-            self.podglad.setText(podglad[8].get_text())
-        elif t10:
-            self.podglad.setText(podglad[9].get_text())
-        elif t11:
-            self.podglad.setText(podglad[10].get_text())
-        elif t12:
-            self.podglad.setText(podglad[11].get_text())
-        elif t13:
-            self.podglad.setText(podglad[12].get_text())
-        elif t14:
-            self.podglad.setText(podglad[13].get_text())
-        elif t15:
-            self.podglad.setText(podglad[14].get_text())
-
+        for x in range(0, 14):
+            if self.lista.currentRow() == x:
+                self.podglad.setText(podglad[x].get_text())
 
 class Aktualny_kurs(QWidget):
     def __init__(self):
