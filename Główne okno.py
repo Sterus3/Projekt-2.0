@@ -1,13 +1,12 @@
 import sys
 import webbrowser
-
 import openpyxl
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-from openpyxl import load_workbook, Workbook
+from openpyxl import load_workbook
 
 
 class moje_okno(QMainWindow):
